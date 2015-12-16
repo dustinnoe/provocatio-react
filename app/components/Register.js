@@ -8,13 +8,11 @@ class Register extends React.Component{
         super(props);
         this.state = {};
         this.state.flashMessage = {
-            class: "notice",
-            text: ""
+            text: null
         }
     }
     handleSubmit(e){
         e.preventDefault();
-        var flashMessage = "";
         base.createUser({
             email: this.refs.registerEmail.value,
             password: this.refs.registerPassword.value
@@ -22,29 +20,43 @@ class Register extends React.Component{
             if (error) {
                 switch (error.code) {
                     case "EMAIL_TAKEN":
-                        flashMessage = "That email address has an account.";
+                        this.setState({
+                            flashMessage: {
+                                text: "That email address already has an account."
+                            }
+                        });
                         break;
                     case "INVALID_EMAIL":
-                        flashMessage= "That email address is not properly formatted.";
+                        this.setState({
+                            flashMessage: {
+                                text: "That email address is not properly formatted."
+                            }
+                        });
                         break;
                     default:
-                        flashMessage = "There was a problem creating an account.";
+                        this.setState({
+                            flashMessage: {
+                                text: "There was a problem creating an account."
+                            }
+                        });
                         console.log("Error creating user:", error);
                 }
             } else {
-                flashMessage = "";
+                this.setState({
+                    flashMessage: {
+                        text: null
+                    }
+                });
                 console.log("Successfully created user account with uid:", userData.uid);
             }
-        })
-        this.state.flashMessage.text = flashMessage;
-        console.log(this.refs.registerEmail.value);
+        }.bind(this));
     }
     render(){
         return (
             <div>
                 <h3>Register</h3>
-                {this.state.flashMessage.text === true ? <FlashMessage flashMessage={this.state.flashMessage} /> : ""}
-                <form onClick={this.handleSubmit.bind(this)}>
+                {!!this.state.flashMessage.text === true ? <FlashMessage flashMessage={this.state.flashMessage} /> : ""}
+                <form onSubmit={this.handleSubmit.bind(this)}>
                     <label>Email:</label><input type="text" ref="registerEmail" /><br />
                     <label>Password:</label><input type="password" ref="registerPassword" /><br />
                     <button type="submit">Register</button>

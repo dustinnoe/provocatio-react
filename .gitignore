@@ -9,6 +9,7 @@
 .idea/vcs.xml
 .idea/*
 node_modules/*
+public/bundle.js
 
 ## File-based project format
 *.ipr

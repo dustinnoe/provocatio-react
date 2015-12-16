@@ -2,9 +2,13 @@ import React from 'react';
 
 class FlashMessage extends React.Component{
     render(){
+        var divStyle = {
+            color: 'red',
+            fontWeight: 'bold'
+        }
         return (
-            <div className={this.props.message.class}>
-                {this.props.message.text}
+            <div style={divStyle}>
+                {this.props.flashMessage.text}
             </div>
         )
     }
