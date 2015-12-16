@@ -1,0 +1,23 @@
+{
+  "name": "provocatio",
+  "version": "1.0.0",
+  "description": "CTF",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack"
+  },
+  "author": "Dustin Noe <noe.dustin@gmai.com>",
+  "devDependencies": {
+    "webpack": "^1.10.5",
+    "babel-core": "^5.8.20",
+    "babel-loader": "^5.3.2"
+  },
+  "dependencies": {
+    "history": "^1.13.1",
+    "re-base": "^1.2.1",
+    "react": "^0.14.3",
+    "react-dom": "^0.14.3",
+    "react-router": "^1.0.2"
+  }
+}
