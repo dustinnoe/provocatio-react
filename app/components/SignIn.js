@@ -1,4 +1,5 @@
 import React from 'react';
+import Menu from './Menu'
 var Rebase = require('re-base');
 var base = Rebase.createClass('https://provocatio.firebaseio.com/');
 
@@ -10,16 +11,28 @@ class SignIn extends React.Component{
             email    : this.refs.signInEmail.value,
             password : this.refs.signInPassword.value
         }, function(){
-            if (base.getAuth()){
-                pushState(null, '/challenges'); // Where to go once signed in
+            var authData = base.getAuth();
+            if (authData){
+                base.fetch('users/' + base.getAuth().uid, {
+                    context: this,
+                    then(data){
+                        if (!!data.displayName && !!data.team){
+                            pushState(null, '/challenges');
+                        } else {
+                            pushState(null, '/home');
+                        }
+                    }
+                });
+
             }
-        });
+        }.bind(this));
     }
     render(){
         return (
             <div>
+            <Menu />
                 <h3>Sign In</h3>
-                <form onClick={this.handleSubmit.bind(this)}>
+                <form onSubmit={this.handleSubmit.bind(this)}>
                     <label>Email:</label><input type="text" ref="signInEmail" /><br />
                     <label>Password:</label><input type="password" ref="signInPassword" /><br />
                     <button type="submit">SignIn</button>

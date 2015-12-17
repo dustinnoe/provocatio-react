@@ -1,4 +1,5 @@
 import React from 'react';
+import Menu from './Menu'
 var Rebase = require('re-base');
 var Auth = require('../utils/Auth.js');
 var base = Rebase.createClass('https://provocatio.firebaseio.com/');
@@ -30,6 +31,7 @@ class LeaderBoard extends React.Component{
     render(){
         return (
             <div>
+                <Menu />
                 <h3>Leaderboard</h3>
                 <p>Coming soon!</p>
             </div>

@@ -1,4 +1,5 @@
 import React from 'react';
+import Menu from './Menu'
 
 class Home extends React.Component{
     constructor(props){
@@ -7,6 +8,7 @@ class Home extends React.Component{
     render(){
         return (
             <div>
+                <Menu />
                 <p>Welcome to the Provocatio Capture the Flag (CTF) platform</p>
             </div>
         )

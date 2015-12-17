@@ -9,6 +9,7 @@ class SignOut extends React.Component{
         this.props.history.pushState(null, '/signin');
     }
     render(){
+
         return (
             <div>
                 Goodbye

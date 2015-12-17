@@ -1,5 +1,6 @@
 var React = require('react');
-import ChallengeBoardItem from '../components/ChallengeBoardItem';
+import Menu from './Menu'
+import ChallengeBoardItem from './ChallengeBoardItem';
 
 var Rebase = require('re-base');
 var Auth = require('../utils/Auth.js');
@@ -32,6 +33,7 @@ class ChallengeBoard extends React.Component{
     render() {
         return (
             <div>
+                <Menu />
                 <h3>Challenge Board</h3>
                 {this.state.loading === true ? <h3> LOADING... </h3> : <ChallengeBoardItem items={this.state.challenges} />}
                 <div id="challengeDesc"></div>
