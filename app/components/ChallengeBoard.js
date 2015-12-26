@@ -2,17 +2,18 @@ var React = require('react');
 import Menu from './Menu'
 import ChallengeBoardItem from './ChallengeBoardItem';
 
-var Rebase = require('re-base');
 var Auth = require('../utils/Auth.js');
-var base = Rebase.createClass('https://provocatio.firebaseio.com/');
+var base = require('../utils/Rebase');
 
 class ChallengeBoard extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             challenges: [],
+            user: null,
             loading: true
-        }
+        };
+
     }
     componentDidMount(){
         this.ref = base.syncState('challenges', {
@@ -20,7 +21,18 @@ class ChallengeBoard extends React.Component{
             state: 'challenges',
             asArray: true,
             then(){
-                this.setState({loading: false})
+                if(!!this.state.user){
+                    this.setState({loading: false});
+                }
+            }
+        });
+        base.fetch('users/' + base.getAuth().uid, {
+            context: this,
+            then(data){
+                this.setState({user: data});
+                if(this.state.challenges.length > 0){
+                    this.setState({loading: false});
+                }
             }
         });
     }
@@ -35,7 +47,7 @@ class ChallengeBoard extends React.Component{
             <div>
                 <Menu />
                 <h3>Challenge Board</h3>
-                {this.state.loading === true ? <h3> LOADING... </h3> : <ChallengeBoardItem items={this.state.challenges} />}
+                {this.state.loading === true ? <h3> LOADING... </h3> : <ChallengeBoardItem items={this.state.challenges} user={this.state.user} />}
                 <div id="challengeDesc"></div>
             </div>
         );

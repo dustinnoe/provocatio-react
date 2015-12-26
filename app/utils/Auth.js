@@ -1,6 +1,5 @@
 import React from 'react';
-var Rebase = require('re-base');
-var base = Rebase.createClass('https://provocatio.firebaseio.com/');
+var base = require('./Rebase');
 import Router from 'react-router';
 
 class Auth extends React.Component {

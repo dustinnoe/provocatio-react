@@ -1,8 +1,7 @@
 import React from 'react';
 import Menu from './Menu'
 import FlashMessage from './FlashMessage';
-var Rebase = require('re-base');
-var base = Rebase.createClass('https://provocatio.firebaseio.com/');
+var base = require('../utils/Rebase');
 
 class Register extends React.Component{
     constructor(props){

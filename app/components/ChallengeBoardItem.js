@@ -3,9 +3,9 @@ import ReactDOM from 'react-dom'
 import Challenge from '../components/Challenge';
 
 class ChallengeBoardItem extends React.Component{
-    loadChallenge(item){
+    loadChallenge(user, item){
         ReactDOM.render((
-            <Challenge item={item} />
+            <Challenge item={item} user={user} />
         ), document.getElementById('challengeDesc'));
     }
     render(){
@@ -15,8 +15,8 @@ class ChallengeBoardItem extends React.Component{
             textDecoration: 'underline'
         }
         var createItem = function(item){
-            return <li key={item.key}><a style={aStyle} onClick={lc.bind(this, item)}>{item.title}</a> - {item.currentValue} points</li>;
-        };
+            return <li key={item.key}><a style={aStyle} onClick={lc.bind(this, this.props.user, item)}>{item.title}</a> - {item.currentValue} points</li>;
+        }.bind(this);
         return <ul>{this.props.items.map(createItem)}</ul>;
     }
 }

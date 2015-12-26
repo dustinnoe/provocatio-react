@@ -1,7 +1,6 @@
 import React from 'react';
-import Menu from './Menu'
-var Rebase = require('re-base');
-var base = Rebase.createClass('https://provocatio.firebaseio.com/');
+import Menu from './Menu';
+var base = require('../utils/Rebase');
 
 class SignIn extends React.Component{
     handleSubmit(e){

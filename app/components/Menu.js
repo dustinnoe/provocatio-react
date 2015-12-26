@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link} from 'react-router';
-var Rebase = require('re-base');
-var base = Rebase.createClass('https://provocatio.firebaseio.com/');
+var base = require('../utils/Rebase');
 
 class Menu extends React.Component{
     constructor(props){
