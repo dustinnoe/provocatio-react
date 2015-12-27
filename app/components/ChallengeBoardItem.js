@@ -1,6 +1,6 @@
-var React = require('react');
+import React from 'react';
 import ReactDOM from 'react-dom'
-import Challenge from '../components/Challenge';
+import Challenge from './Challenge';
 
 class ChallengeBoardItem extends React.Component{
     loadChallenge(user, item){

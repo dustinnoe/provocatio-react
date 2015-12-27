@@ -1,7 +1,9 @@
 import React from 'react';
 import Menu from './Menu';
+import LeaderBoardItem from './LeaderBoardItem';
+
 var Auth = require('../utils/Auth.js');
-var base = require('../utils/Rebase');
+import base from "../utils/Rebase";
 
 class LeaderBoard extends React.Component{
     constructor(props){
@@ -9,7 +11,8 @@ class LeaderBoard extends React.Component{
         this.state = {
             leaderboard: [],
             loading: true
-        }
+        };
+
     }
     componentDidMount(){
         this.ref = base.syncState('leaderboard', {
@@ -17,7 +20,7 @@ class LeaderBoard extends React.Component{
             state: 'leaderboard',
             asArray: true,
             then(){
-                this.setState({loading: false})
+                this.setState({loading: false});
             }
         });
     }
@@ -32,9 +35,17 @@ class LeaderBoard extends React.Component{
             <div>
                 <Menu />
                 <h3>Leaderboard</h3>
-                <p>Coming soon!</p>
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Team Name</th>
+                        <th>Score</th>
+                    </tr>
+                    </thead>
+                    <LeaderBoardItem items={this.state.leaderboard} />
+                </table>
             </div>
-        )
+        );
     }
 };
 

@@ -1,9 +1,10 @@
-var React = require('react');
+import React from 'react';
 import Menu from './Menu'
 import ChallengeBoardItem from './ChallengeBoardItem';
 
 var Auth = require('../utils/Auth.js');
-var base = require('../utils/Rebase');
+//var base = require('../utils/Rebase');
+import base from "../utils/Rebase";
 
 class ChallengeBoard extends React.Component{
     constructor(props){
