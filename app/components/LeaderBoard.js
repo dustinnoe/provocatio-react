@@ -1,9 +1,8 @@
 import React from 'react';
 import Menu from './Menu';
-import LeaderBoardItem from './LeaderBoardItem';
-
-var Auth = require('../utils/Auth.js');
+import Auth from "../utils/Auth";
 import base from "../utils/Rebase";
+import LeaderBoardItem from './LeaderBoardItem';
 
 class LeaderBoard extends React.Component{
     constructor(props){

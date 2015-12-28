@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link} from 'react-router';
-var base = require('../utils/Rebase');
+import base from "../utils/Rebase";
 
 class Menu extends React.Component{
     constructor(props){

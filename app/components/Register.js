@@ -1,7 +1,7 @@
 import React from 'react';
 import Menu from './Menu'
 import FlashMessage from './FlashMessage';
-var base = require('../utils/Rebase');
+import base from "../utils/Rebase";
 
 class Register extends React.Component{
     constructor(props){

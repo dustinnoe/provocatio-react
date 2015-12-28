@@ -1,6 +1,6 @@
 import React from 'react';
 import FlashMessage from './FlashMessage';
-var base = require('../utils/Rebase');
+import base from "../utils/Rebase";
 
 class Challenge extends React.Component{
     constructor(props){

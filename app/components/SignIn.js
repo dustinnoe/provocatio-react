@@ -1,6 +1,6 @@
 import React from 'react';
 import Menu from './Menu';
-var base = require('../utils/Rebase');
+import base from "../utils/Rebase";
 
 class SignIn extends React.Component{
     handleSubmit(e){

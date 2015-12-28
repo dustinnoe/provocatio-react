@@ -1,5 +1,5 @@
 import React from 'react';
-var base = require('./Rebase');
+import base from "./Rebase";
 import Router from 'react-router';
 
 class Auth extends React.Component {
