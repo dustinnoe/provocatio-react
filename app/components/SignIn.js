@@ -29,7 +29,6 @@ class SignIn extends React.Component{
     render(){
         return (
             <div>
-            <Menu />
                 <h3>Sign In</h3>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <label>Email:</label><input type="text" ref="signInEmail" /><br />

@@ -32,7 +32,6 @@ class LeaderBoard extends React.Component{
     render(){
         return (
             <div>
-                <Menu />
                 <h3>Leaderboard</h3>
                 <table>
                     <thead>

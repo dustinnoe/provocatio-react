@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link} from 'react-router';
+import {Link} from 'react-router';
 import base from "../utils/Rebase";
 
 class Menu extends React.Component{
@@ -28,13 +28,14 @@ class Menu extends React.Component{
     }
     render(){
         return (
-            <nav>
-                <ul>
-                    {!base.getAuth() ? <li><Link to={'/register'}>Register</Link></li> : ""}
-                    {this.state.menuFlag ? <li><Link to={'/leaderboard'}>Leaderboard</Link></li> : ""}
-                    {this.state.menuFlag ? <li><Link to={'/challenges'}>Challenges</Link></li> : ""}
-                </ul>
-            </nav>
+            <div id="header">
+                <Link to={'/home'}><img src="CTFLogo.png" alt="Provocatio" /></Link>
+                <div id="headerRight">
+                    {!!base.getAuth() ? <Link to={'/signout'}><img src="Logout_2.png" alt="Sign Out" /></Link> : ""}
+                    {!!base.getAuth() ? <Link to={'/settings'}><img src="Configuration.png" alt="Settings" /></Link> : ""}
+
+                </div>
+            </div>
         )
     }
 };

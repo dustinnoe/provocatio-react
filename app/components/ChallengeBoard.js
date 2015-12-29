@@ -44,7 +44,6 @@ class ChallengeBoard extends React.Component{
     render() {
         return (
             <div>
-                <Menu />
                 <h3>Challenge Board</h3>
                 {this.state.loading === true ? <h3> LOADING... </h3> : <ChallengeBoardItem items={this.state.challenges} user={this.state.user} />}
                 <div id="challengeDesc"></div>
