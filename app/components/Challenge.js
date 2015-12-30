@@ -16,7 +16,20 @@ class Challenge extends React.Component{
         };
     }
     componentWillMount(){
-        this.challengeRef = base.syncState('challenges/' + this.props.params.id, {
+        this.loadListeners(this.props.params.id);
+    }
+    componentWillReceiveProps(nextProps){
+        if(!!this.challengeRef) {
+            base.removeBinding(this.challengeRef);
+        }
+        if(!!this.solutionRef){
+            base.removeBinding(this.solutionRef);
+        }
+        this.loadListeners(nextProps.params.id);
+
+    }
+    loadListeners(challengeID){
+        this.challengeRef = base.syncState('challenges/' + challengeID, {
             context: this,
             state: 'challenge',
             then(){
@@ -28,7 +41,7 @@ class Challenge extends React.Component{
             context: this,
             then(data){
                 this.setState({user: data});
-                this.solutionRef = base.listenTo('/solutions/' + this.props.params.id + '/' + data.team + '/', {
+                this.solutionRef = base.listenTo('/solutions/' + challengeID + '/' + data.team + '/', {
                     context: this,
                     then(data){
                         this.isSolved(data);
@@ -37,7 +50,6 @@ class Challenge extends React.Component{
             }
         });
     }
-
     isSolved(data){
         if (typeof data === "boolean" && data === true) {
             this.setState({solved: true});
@@ -82,7 +94,6 @@ class Challenge extends React.Component{
         base.removeBinding(this.solutionRef);
     }
     render(){
-        console.log(this.state.challenge);
         return (
             <div>
                 <h4>{this.state.challenge.title}</h4>
