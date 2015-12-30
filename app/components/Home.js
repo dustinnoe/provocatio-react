@@ -8,7 +8,6 @@ class Home extends React.Component{
     render(){
         return (
             <div>
-                <Menu />
                 <p>Welcome to the Provocatio Capture the Flag (CTF) platform</p>
             </div>
         )

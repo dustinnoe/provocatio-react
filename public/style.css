@@ -10,6 +10,21 @@ nav, nav ul {
     width: 200px;
 }
 
+nav {
+    float: left;
+    height: 500px;
+}
+
+nav ul li {
+    font: bold 16pt Consolas;
+}
+
+nav ul li ul li {
+    font-size: 12pt;
+    padding-left: 20px;
+}
+
+
 #headerRight {
     position: absolute;
     top: 10px;

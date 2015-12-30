@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ChallengeBoard from './components/ChallengeBoard';
+import Challenge from './components/Challenge';
 import LeaderBoard from './components/LeaderBoard';
 import SignIn from './components/SignIn';
 import SignOut from './components/SignOut';
@@ -10,14 +10,41 @@ import Home from './components/Home';
 import Menu from './components/Menu';
 import Header from './components/Header';
 import { Router, Route, Link} from 'react-router';
+import base from "./utils/Rebase";
 
 class App extends React.Component{
+    constructor(props){
+        super(props);
+        this.state = {
+            challenges: [],
+            user: null,
+            loading: true
+        };
+
+    }
+    componentDidMount(){
+        this.ref = base.syncState('challenges', {
+            context: this,
+            state: 'challenges',
+            asArray: true,
+            then(){
+            }
+        });
+        base.fetch('users/' + base.getAuth().uid, {
+            context: this,
+            then(data){
+                this.setState({user: data});
+            }
+        });
+    }
     render(){
         return (
             <div>
                 <Header />
-                <Menu />
-                {this.props.children}
+                <Menu challenges={this.state.challenges} />
+                <div id="content">
+                    {this.props.children}
+                </div>
             </div>
         )
     }
@@ -26,13 +53,13 @@ class App extends React.Component{
 ReactDOM.render((
     <Router>
         <Route path="/" component={App}>
-            <Route path="signin" component={SignIn}/>
-            <Route path="signout" component={SignOut}/>
-            <Route path="challenges" component={ChallengeBoard}/>
-            <Route path="leaderboard" component={LeaderBoard}/>
-            <Route path="register" component={Register}/>
-            <Route path="settings" component={Settings}/>
-            <Route path="*" component={Home}/>
+            <Route path="signin" component={SignIn} />
+            <Route path="signout" component={SignOut} />
+            <Route path="challenge/:id" component={Challenge} />
+            <Route path="leaderboard" component={LeaderBoard} />
+            <Route path="register" component={Register} />
+            <Route path="settings" component={Settings} />
+            <Route path="*" component={Home} />
         </Route>
     </Router>
 ), document.getElementById('app'));

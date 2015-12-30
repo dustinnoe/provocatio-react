@@ -10,36 +10,34 @@ class Challenge extends React.Component{
                 text: null
             },
             solved: false,
+            challenge: [],
+            user: [],
             isLoading: true
         };
+    }
+    componentWillMount(){
+        this.challengeRef = base.syncState('challenges/' + this.props.params.id, {
+            context: this,
+            state: 'challenge',
+            then(){
+                this.setState({isLoading: false});
+            }
+        });
 
-        this.ref = base.listenTo('/solutions/' + this.props.item.key + '/' + this.props.user.team + '/', {
+        base.fetch('users/' + base.getAuth().uid, {
             context: this,
             then(data){
-                this.isSolved(data);
+                this.setState({user: data});
+                this.solutionRef = base.listenTo('/solutions/' + this.props.params.id + '/' + data.team + '/', {
+                    context: this,
+                    then(data){
+                        this.isSolved(data);
+                    }
+                });
             }
         });
     }
-    //Updates the state when a different challenge is loaded
-    componentWillReceiveProps(nextProps){
-        this.setState({
-            flashMessage: {
-                text: null
-            },
-            isLoading: true
-        });
 
-        base.removeBinding(this.ref);
-        this.ref = base.listenTo('solutions/' + nextProps.item.key + '/' + this.props.user.team + '/', {
-            context: this,
-            then(data){
-                this.isSolved(data);
-            }
-        });
-        if(this.refs.challengeFlag) {
-            this.refs.challengeFlag.value = "";
-        }
-    }
     isSolved(data){
         if (typeof data === "boolean" && data === true) {
             this.setState({solved: true});
@@ -60,8 +58,8 @@ class Challenge extends React.Component{
         } else {
             base.push('submissions/',{
                 data: {
-                    teamID: this.props.user.team,
-                    challengeID: this.props.item.key,
+                    teamID: this.state.user.team,
+                    challengeID: this.props.params.id,
                     flag: this.refs.challengeFlag.value,
                     submittedAt: Firebase.ServerValue.TIMESTAMP
                 },
@@ -79,12 +77,16 @@ class Challenge extends React.Component{
             }
         }
     }
+    componentWillUnmount(){
+        base.removeBinding(this.challengeRef);
+        base.removeBinding(this.solutionRef);
+    }
     render(){
-        var item = this.props.item;
+        console.log(this.state.challenge);
         return (
             <div>
-                <h4>{item.title}</h4>
-                <p>{item.content}</p>
+                <h4>{this.state.challenge.title}</h4>
+                <p>{this.state.challenge.content}</p>
                 {!!this.state.flashMessage.text === true ? <FlashMessage flashMessage={this.state.flashMessage} /> : ""}
                 {!!this.state.isLoading === true ?
                     <p>Loading...</p> :
