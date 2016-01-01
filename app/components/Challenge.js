@@ -26,7 +26,6 @@ class Challenge extends React.Component{
             base.removeBinding(this.solutionRef);
         }
         this.loadListeners(nextProps.params.id);
-
     }
     loadListeners(challengeID){
         this.challengeRef = base.syncState('challenges/' + challengeID, {

@@ -4,6 +4,16 @@ html, body {
     padding: 0px;
 }
 
+#headerRight {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+#headerRight img {
+    margin-right: 10px;
+}
+
 nav, nav ul {
     margin: 0px;
     padding: 0px;
@@ -22,19 +32,12 @@ nav ul li {
 nav ul li ul li {
     font-size: 12pt;
     padding-left: 20px;
+    width: 180px;
 }
 
-
-#headerRight {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+#content {
+    padding-left: 215px;
 }
-
-#headerRight img {
-    margin-right: 10px;
-}
-
 
 /* Look and Feel */
 
