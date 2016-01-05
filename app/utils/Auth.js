@@ -10,6 +10,7 @@ class Auth extends React.Component {
         if (!base.getAuth()){
             this.props.history.pushState(null, '/signin');
         }
+
     }
 }
 

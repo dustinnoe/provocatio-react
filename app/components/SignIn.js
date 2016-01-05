@@ -18,7 +18,7 @@ class SignIn extends React.Component{
                         if (!!data.displayName && !!data.team){
                             pushState(null, '/home');
                         } else {
-                            pushState(null, '/home');
+                            pushState(null, '/settings');
                         }
                     }
                 });

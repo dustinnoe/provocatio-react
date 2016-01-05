@@ -9,53 +9,55 @@ class Challenge extends React.Component{
             flashMessage: {
                 text: null
             },
-            solved: false,
-            challenge: [],
+            challenges: {},
+            solutions: {},
             user: [],
-            isLoading: true
+            isLoading: true,
+            currentChallenge: null
         };
     }
     componentWillMount(){
-        this.loadListeners(this.props.params.id);
-    }
-    componentWillReceiveProps(nextProps){
-        if(!!this.challengeRef) {
-            base.removeBinding(this.challengeRef);
-        }
-        if(!!this.solutionRef){
-            base.removeBinding(this.solutionRef);
-        }
-        this.loadListeners(nextProps.params.id);
-    }
-    loadListeners(challengeID){
-        this.challengeRef = base.syncState('challenges/' + challengeID, {
-            context: this,
-            state: 'challenge',
-            then(){
-                this.setState({isLoading: false});
-            }
-        });
-
-        base.fetch('users/' + base.getAuth().uid, {
-            context: this,
-            then(data){
-                this.setState({user: data});
-                this.solutionRef = base.listenTo('/solutions/' + challengeID + '/' + data.team + '/', {
+        // Load all challenges and team solutions
+        if (!this.hasOwnProperty('challengeRef')) {
+            try {
+                this.challengeRef = base.syncState('challenges/', {
                     context: this,
-                    then(data){
-                        this.isSolved(data);
+                    state: 'challenges',
+                    then(){
+                        this.setState({currentChallenge: this.props.params.id});
                     }
                 });
+            } catch (err) {
+                console.log(err);
             }
-        });
-    }
-    isSolved(data){
-        if (typeof data === "boolean" && data === true) {
-            this.setState({solved: true});
-        } else {
-            this.setState({solved: false});
         }
-        this.setState({isLoading: false});
+
+        try {
+            base.fetch('users/' + base.getAuth().uid, {
+                context: this,
+                then(data){
+                    this.setState({user: data});
+                    if (!this.hasOwnProperty('solutionRef')) {
+                        try {
+                            this.solutionRef = base.syncState('teams/' + data.team + '/solutions', {
+                                context: this,
+                                state: 'solutions',
+                                then(){
+                                    this.setState({isLoading: false});
+                                }
+                            });
+                        } catch (err) {
+                            console.log(err);
+                        }
+                    }
+                }
+            });
+        } catch(err){
+            console.log(err);
+        }
+    }
+    componentWillReceiveProps(nextProps){
+        this.setState({currentChallenge: nextProps.params.id});
     }
     handleSubmit(e){
         e.preventDefault();
@@ -76,7 +78,7 @@ class Challenge extends React.Component{
                 },
                 then(){
                 }
-            })
+            });
             this.setState({
                 flashMessage: {
                     text: null
@@ -88,24 +90,35 @@ class Challenge extends React.Component{
             }
         }
     }
-    componentWillUnmount(){
-        base.removeBinding(this.challengeRef);
-        base.removeBinding(this.solutionRef);
+    componentWillUnmount() {
+        try{
+            base.removeBinding(this.challengeRef);
+        } catch (err){
+            console.log(err);
+        }
+        try{
+            base.removeBinding(this.solutionRef);
+        } catch(err){
+            console.log(err);
+        }
     }
     render(){
+        var challenge = this.state.challenges[this.state.currentChallenge];
         return (
             <div>
-                <h4>{this.state.challenge.title}</h4>
-                <p>{this.state.challenge.content}</p>
                 {!!this.state.flashMessage.text === true ? <FlashMessage flashMessage={this.state.flashMessage} /> : ""}
                 {!!this.state.isLoading === true ?
                     <p>Loading...</p> :
-                        !!this.state.solved === true ?
+                        !!this.state.solutions[this.state.currentChallenge] === true ?
                             <p>Solved!</p> :
-                            <form onSubmit={this.handleSubmit.bind(this)}>
-                            <label>Flag:</label><input type="text" ref="challengeFlag" /><br />
-                            <button type="submit">Submit</button>
-                            </form>
+                            <div>
+                                <h4>{challenge.title}</h4>
+                                <p>{challenge.content}</p>
+                                <form onSubmit={this.handleSubmit.bind(this)}>
+                                <label>Flag:</label><input type="text" ref="challengeFlag" /><br />
+                                <button type="submit">Submit</button>
+                                </form>
+                            </div>
                 }
             </div>
         )

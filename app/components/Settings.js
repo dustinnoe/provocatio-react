@@ -63,15 +63,15 @@ class Settings extends React.Component{
     }
     saveProfileInformation(){
         alert("Write the code to save profile information");
+
     }
     handleChange(e){
         var user = {};
-        if(e.target.name === "firstName") {user.firstName = e.target.value}
-        else{console.log("here");user.firstName = this.state.user.firstName}
-        if(e.target.name === "lastName") {user.lastName = e.target.value}
-        else{user.lastName = this.state.user.lastName}
+        if(e.target.name === "firstName") { user.firstName = e.target.value }
+        else { user.firstName = this.state.user.firstName }
+        if(e.target.name === "lastName") { user.lastName = e.target.value }
+        else{ user.lastName = this.state.user.lastName }
         user.displayName = this.state.user.displayName;
-        console.log(user);
         this.setState({user: user});
     }
     render() {
