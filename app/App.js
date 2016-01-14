@@ -9,7 +9,7 @@ import Settings from './components/Settings';
 import Home from './components/Home';
 import Menu from './components/Menu';
 import Header from './components/Header';
-import { Router, Route, Link} from 'react-router';
+import {Router, Route, Link} from 'react-router';
 import base from "./utils/Rebase";
 
 class App extends React.Component{

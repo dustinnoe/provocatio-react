@@ -23,6 +23,7 @@ nav, nav ul {
 nav {
     float: left;
     height: 500px;
+    padding: 10px;
 }
 
 nav ul li {
@@ -36,7 +37,7 @@ nav ul li ul li {
 }
 
 #content {
-    padding-left: 215px;
+    padding-left: 230px;
 }
 
 /* Look and Feel */
