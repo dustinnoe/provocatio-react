@@ -5,7 +5,7 @@ import base from "../utils/Rebase";
 class SignIn extends React.Component{
     handleSubmit(e){
         e.preventDefault();
-        var pushState = this.props.history.pushState;
+        let pushState = this.props.history.pushState;
         base.authWithPassword({
             email    : this.refs.signInEmail.value,
             password : this.refs.signInPassword.value
@@ -17,10 +17,10 @@ class SignIn extends React.Component{
                     then(data){
                         if (!!data.displayName && !!data.team){
                             pushState(null, '/home');
-                            window.reload();
+                            window.location.reload();
                         } else {
                             pushState(null, '/settings');
-                            window.reload();
+                            window.location.reload();
                         }
                     }
                 });

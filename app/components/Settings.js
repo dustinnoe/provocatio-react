@@ -42,7 +42,7 @@ class Settings extends React.Component{
         base.fetch('users/' + member + '/displayName', {
             context: this,
             then(displayName){
-                var newArray = this.state.teamMembers.slice();
+                let newArray = this.state.teamMembers.slice();
                 newArray.push(displayName);
                 this.setState({teamMembers:newArray});
             }
@@ -53,7 +53,7 @@ class Settings extends React.Component{
             context: this,
             state: 'team',
             then(){
-                for (var member in this.state.team.members) {
+                for (let member in this.state.team.members) {
                     if (this.state.team.members.hasOwnProperty(member)) {
                         this.fetchUserDisplayName(member);
                     }
@@ -62,7 +62,7 @@ class Settings extends React.Component{
         })
     }
     saveProfileInformation(){
-        var uid = base.getAuth().uid;
+        let uid = base.getAuth().uid;
         base.post('users/' + uid + '/firstName', {
             data: this.refs.firstName.value
         });
@@ -77,7 +77,7 @@ class Settings extends React.Component{
     }
     handleJoinTeam(){
         // Check if Team Name is already taken
-        var teamName = this.refs.joinTeamName.value;
+        let teamName = this.refs.joinTeamName.value;
         // It would be great if re-base calls were promisified
         base.fetch('teams/' + teamName + '/exists', {
             context: this,
@@ -103,8 +103,8 @@ class Settings extends React.Component{
         });
     }
     handleCreateTeam(){
-        var teamName = this.refs.createTeamName.value;
-        var teamData = {
+        let teamName = this.refs.createTeamName.value;
+        let teamData = {
             exists: true,
             captain: base.getAuth().uid,
             members: {}
@@ -131,7 +131,7 @@ class Settings extends React.Component{
         });
     }
     handleChange(e){
-        var user = {};
+        let user = {};
         if(e.target.name === "firstName") { user.firstName = e.target.value }
         else { user.firstName = this.state.user.firstName }
         if(e.target.name === "lastName") { user.lastName = e.target.value }
@@ -140,35 +140,53 @@ class Settings extends React.Component{
         this.setState({user: user});
     }
     render() {
+        let team;
+        let displayName;
+
+        if (!this.state.user.team){
+            team = (
+                <div>
+                    <h3>Join a Team<span> (The team captain must approve)</span></h3>
+                    <form className="settingsForm">
+                        <input type="text" placeholder="Team Name" ref="joinTeamName"/><button onClick={this.handleJoinTeam.bind(this)}>Send Request</button>
+                    </form>
+                    <h3>Create a Team <span>(You'll be the team captain)</span></h3>
+                    <form className="settingsForm">
+                        <input type="text" placeholder="Team Name" ref="createTeamName"/><button onClick={this.handleCreateTeam.bind(this)}>Create</button>
+                    </form>
+                </div>
+            );
+        } else {
+            team = (
+                <div>
+                    <h3>Team Information</h3>
+                    <h4>{this.state.user.team}</h4>
+                    {this.state.teamMembers}
+                </div>
+            );
+        }
+
+        if (!!this.state.user.displayName){
+            displayName = (
+                <span>Display Name: {this.state.user.displayName}</span>
+            );
+        } else {
+            displayName = (
+                <span><input type="text" placeholder="Display Name" ref="displayName"/>(Once you set it, it's permanent!)</span>
+            );
+        }
+
         return (
             <div>
                 <h3>Profile Information</h3>
                 <form className="settingsForm">
                     <input name="firstName" type="text" value={this.state.user.firstName} onChange={this.handleChange.bind(this)} placeholder="First Name" ref="firstName"/><br />
                     <input name="lastName" type="text" value={this.state.user.lastName}  onChange={this.handleChange.bind(this)} placeholder="Last Name" ref="lastName"/><br />
-                    {!!this.state.user.displayName ?
-                        <span>Display Name: {this.state.user.displayName}</span> :
-                        <span><input type="text" placeholder="Display Name" ref="displayName"/>(Once you set it, it's permanent!)</span>}<br />
+                    {displayName}<br />
                     <span>Email: {base.getAuth().password.email}</span><br />
                     <button onClick={this.saveProfileInformation.bind(this)}>Save</button>
                 </form>
-                {!this.state.user.team ?
-                    <div>
-                        <h3>Join a Team<span> (The team captain must approve)</span></h3>
-                        <form className="settingsForm">
-                            <input type="text" placeholder="Team Name" ref="joinTeamName"/><button onClick={this.handleJoinTeam.bind(this)}>Send Request</button>
-                        </form>
-                        <h3>Create a Team <span>(You'll be the team captain)</span></h3>
-                        <form className="settingsForm">
-                            <input type="text" placeholder="Team Name" ref="createTeamName"/><button onClick={this.handleCreateTeam.bind(this)}>Create</button>
-                        </form>
-                    </div> :
-                    <div>
-                        <h3>Team Information</h3>
-                        <h4>{this.state.user.team}</h4>
-                        {this.state.teamMembers}
-                    </div>
-                }
+                {team}
             </div>
         );
     }
