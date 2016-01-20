@@ -25,6 +25,8 @@ class Settings extends React.Component{
             then(){
                 if(!!this.state.user.team){
                     this.loadTeamState(this.state.user.team);
+                } else {
+                    this.setState({loading: false});
                 }
             }
 
@@ -58,6 +60,7 @@ class Settings extends React.Component{
                         this.fetchUserDisplayName(member);
                     }
                 }
+                this.setState({loading: false});
             }
         })
     }
@@ -175,8 +178,9 @@ class Settings extends React.Component{
                 <span><input type="text" placeholder="Display Name" ref="displayName"/>(Once you set it, it's permanent!)</span>
             );
         }
-
         return (
+        this.state.loading === true ?
+            <img src="floating_rays.gif" /> :
             <div>
                 <h3>Profile Information</h3>
                 <form className="settingsForm">
