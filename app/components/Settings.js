@@ -18,19 +18,20 @@ class Settings extends React.Component{
         };
     }
     componentWillMount(){
-        new Auth(this.props).isAuthenticated();
-        this.userRef = base.syncState('users/' + base.getAuth().uid, {
-            context: this,
-            state: 'user',
-            then(){
-                if(!!this.state.user.team){
-                    this.loadTeamState(this.state.user.team);
-                } else {
-                    this.setState({loading: false});
+        if (new Auth().isAuthenticated()) {
+            this.userRef = base.syncState('users/' + base.getAuth().uid, {
+                context: this,
+                state: 'user',
+                then(){
+                    if (!!this.state.user.team) {
+                        this.loadTeamState(this.state.user.team);
+                    } else {
+                        this.setState({loading: false});
+                    }
                 }
-            }
 
-        });
+            });
+        }
     }
     componentWillUnmount(){
         if(!!this.userRef){

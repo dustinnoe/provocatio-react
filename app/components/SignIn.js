@@ -1,11 +1,12 @@
-import React from 'react';
-import Menu from './Menu';
-import base from "../utils/Rebase";
+import React from 'react'
+import { browserHistory } from 'react-router'
+import Menu from './Menu'
+import base from "../utils/Rebase"
 
 class SignIn extends React.Component{
     handleSubmit(e){
         e.preventDefault();
-        let pushState = this.props.history.pushState;
+        console.log("Attempting to authenticate " + this.refs.signInEmail.value)
         base.authWithPassword({
             email    : this.refs.signInEmail.value,
             password : this.refs.signInPassword.value
@@ -16,16 +17,19 @@ class SignIn extends React.Component{
                     context: this,
                     then(data){
                         if (!!data.displayName && !!data.team){
-                            pushState(null, '/home');
+                            browserHistory.push('/home');
                             window.location.reload();
                         } else {
-                            pushState(null, '/settings');
+                            browserHistory.push('/settings');
                             window.location.reload();
                         }
                     }
                 });
 
+            } else {
+                console.log("Authentication failed!")
             }
+
         }.bind(this));
     }
     render(){

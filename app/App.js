@@ -31,12 +31,14 @@ class App extends React.Component{
             then(){
             }
         });
-        base.fetch('users/' + base.getAuth().uid, {
-            context: this,
-            then(data){
-                this.setState({user: data});
-            }
-        });
+        if (base.getAuth()) {
+            base.fetch('users/' + base.getAuth().uid, {
+                context: this,
+                then(data){
+                    this.setState({user: data});
+                }
+            });
+        }
     }
     render(){
         return (
@@ -52,7 +54,7 @@ class App extends React.Component{
 }
 
 ReactDOM.render((
-    <Router>
+    <Router history={browserHistory}>
         <Route path="/" component={App}>
             <IndexRoute component={Home}/>
             <Route path="/signin" component={SignIn} />

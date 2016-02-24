@@ -5,7 +5,8 @@ class SignOut extends React.Component{
 
     componentDidMount(){
         base.unauth();
-        this.props.history.pushState(null, '/signin');
+        //this.props.history.push('/signin');
+        context.router.push('/signin');
     }
     render(){
 

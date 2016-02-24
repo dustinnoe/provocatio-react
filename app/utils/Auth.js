@@ -1,6 +1,6 @@
 import React from 'react';
 import base from "./Rebase";
-import Router from 'react-router';
+import { Router, browserHistory } from 'react-router';
 
 class Auth extends React.Component {
     constructor(props){
@@ -8,9 +8,10 @@ class Auth extends React.Component {
     }
     isAuthenticated(){
         if (!base.getAuth()){
-            this.props.history.pushState(null, '/signin');
+            browserHistory.replace('/signin')
+            return false
         }
-
+        return true
     }
 }
 

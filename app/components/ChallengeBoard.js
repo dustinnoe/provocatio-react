@@ -36,7 +36,7 @@ class ChallengeBoard extends React.Component{
         });
     }
     componentWillMount(){
-        new Auth(this.props).isAuthenticated();
+        new Auth().isAuthenticated();
     }
     componentWillUnmount(){
         base.removeBinding(this.ref);

@@ -5,6 +5,7 @@ import base from "../utils/Rebase";
 import LeaderBoardItem from './LeaderBoardItem';
 
 class LeaderBoard extends React.Component{
+
     constructor(props){
         super(props);
         this.state = {
@@ -24,7 +25,8 @@ class LeaderBoard extends React.Component{
         });
     }
     componentWillMount(){
-        new Auth(this.props).isAuthenticated();
+        new Auth().isAuthenticated()
+
     }
     componentWillUnmount(){
         base.removeBinding(this.ref);

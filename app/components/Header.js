@@ -31,7 +31,7 @@ class Menu extends React.Component{
             <div id="header">
                 <Link to={'/home'}><img src="CTFLogo.png" alt="Provocatio" /></Link>
                 <div id="headerRight">
-                    {!!base.getAuth() ? <a href="index.html#/signout"><img src="Logout_2.png" alt="Sign Out" /></a> : ""}
+                    {!!base.getAuth() ? <a href="/signout"><img src="Logout_2.png" alt="Sign Out" /></a> : ""}
                     {!!base.getAuth() ? <Link to={'/settings'}><img src="Configuration.png" alt="Settings" /></Link> : ""}
 
                 </div>

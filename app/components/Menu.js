@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link} from 'react-router';
+import { Link } from 'react-router';
 import base from "../utils/Rebase";
 import ChallengeBoardItem from './ChallengeBoardItem';
 
