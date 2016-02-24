@@ -104,21 +104,25 @@ class Challenge extends React.Component{
     }
     render(){
         var challenge = this.state.challenges[this.state.currentChallenge];
+        let solvedStyle = {
+            font: 'bold 36pt serif', color: 'green'
+        }
         return (
             <div>
                 {!!this.state.flashMessage.text === true ? <FlashMessage flashMessage={this.state.flashMessage} /> : ""}
                 {!!this.state.isLoading === true ?
                     <img src="floating_rays.gif" /> :
-                        !!this.state.solutions[this.state.currentChallenge] === true ?
-                            <p>Solved!</p> :
-                            <div>
-                                <h4>{challenge.title}</h4>
-                                <p>{challenge.content}</p>
-                                <form onSubmit={this.handleSubmit.bind(this)}>
-                                <label>Flag:</label><input type="text" ref="challengeFlag" /><br />
-                                <button type="submit">Submit</button>
-                                </form>
-                            </div>
+                    <div>
+                        <h4>{challenge.title}</h4>
+                        <p>{challenge.content}</p>
+                    {!!this.state.solutions[this.state.currentChallenge] === true ?
+                        <p style={solvedStyle}>SOLVED!</p> :
+                        <form onSubmit={this.handleSubmit.bind(this)}>
+                            <label>Flag:</label><input type="text" ref="challengeFlag"/><br />
+                            <button type="submit">Submit</button>
+                        </form>
+                    }
+                    </div>
                 }
             </div>
         )

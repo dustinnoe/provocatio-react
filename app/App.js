@@ -1,16 +1,17 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import Challenge from './components/Challenge';
-import LeaderBoard from './components/LeaderBoard';
-import SignIn from './components/SignIn';
-import SignOut from './components/SignOut';
-import Register from './components/Register';
-import Settings from './components/Settings';
-import Home from './components/Home';
-import Menu from './components/Menu';
-import Header from './components/Header';
-import {Router, Route, Link} from 'react-router';
-import base from "./utils/Rebase";
+
+import React from 'react'
+import ReactDOM from 'react-dom'
+import Challenge from './components/Challenge'
+import LeaderBoard from './components/LeaderBoard'
+import SignIn from './components/SignIn'
+import SignOut from './components/SignOut'
+import Register from './components/Register'
+import Settings from './components/Settings'
+import Home from './components/Home'
+import Menu from './components/Menu'
+import Header from './components/Header'
+import {Router, Route, browserHistory, IndexRoute} from 'react-router'
+import base from "./utils/Rebase"
 
 class App extends React.Component{
     constructor(props){
@@ -53,13 +54,13 @@ class App extends React.Component{
 ReactDOM.render((
     <Router>
         <Route path="/" component={App}>
-            <Route path="signin" component={SignIn} />
-            <Route path="signout" component={SignOut} />
-            <Route path="challenge/:id" component={Challenge} />
-            <Route path="leaderboard" component={LeaderBoard} />
-            <Route path="register" component={Register} />
-            <Route path="settings" component={Settings} />
-            <Route path="*" component={Home} />
+            <IndexRoute component={Home}/>
+            <Route path="/signin" component={SignIn} />
+            <Route path="/signout" component={SignOut} />
+            <Route path="/challenge/:id" component={Challenge} />
+            <Route path="/leaderboard" component={LeaderBoard} />
+            <Route path="/register" component={Register} />
+            <Route path="/settings" component={Settings} />
         </Route>
     </Router>
 ), document.getElementById('app'));

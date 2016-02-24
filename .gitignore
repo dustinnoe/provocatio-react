@@ -1,10 +1,6 @@
-## Directory-based project format
-.idea/workspace.xml
-# and these sensitive or high-churn files:
-.idea/vcs.xml
-.idea/*
-node_modules/*
-public/bundle.js
+.idea/
+bundle.js
+node_modules/
 
 ## File-based project format
 *.iml
