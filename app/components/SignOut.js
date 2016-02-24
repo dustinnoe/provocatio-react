@@ -1,15 +1,14 @@
 import React from 'react';
+import { browserHistory } from 'react-router'
 import base from "../utils/Rebase";
 
 class SignOut extends React.Component{
 
     componentDidMount(){
         base.unauth();
-        //this.props.history.push('/signin');
-        context.router.push('/signin');
+        browserHistory.push('/signin');
     }
     render(){
-
         return (
             <div>
                 Goodbye
