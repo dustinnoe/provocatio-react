@@ -111,7 +111,7 @@ class Challenge extends React.Component{
             <div>
                 {!!this.state.flashMessage.text === true ? <FlashMessage flashMessage={this.state.flashMessage} /> : ""}
                 {!!this.state.isLoading === true ?
-                    <img src="floating_rays.gif" /> :
+                    <img src="/floating_rays.gif" /> :
                     <div>
                         <h4>{challenge.title}</h4>
                         <p>{challenge.content}</p>

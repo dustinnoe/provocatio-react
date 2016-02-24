@@ -17,8 +17,10 @@ class Menu extends React.Component{
             base.fetch('users/' + base.getAuth().uid, {
                 context: this,
                 then(data){
-                    !!data.displayName ? this.setState({hasDisplayName: true}) : this.setState({hasDisplayName: false});
-                    !!data.team ? this.setState({isOnTeam: true}) : this.setState({isOnTeam: false});
+                    if(data !== null) {
+                        !!data.displayName ? this.setState({hasDisplayName: true}) : this.setState({hasDisplayName: false});
+                        !!data.team ? this.setState({isOnTeam: true}) : this.setState({isOnTeam: false});
+                    }
                 }
             });
         }

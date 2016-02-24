@@ -16,11 +16,11 @@ class SignIn extends React.Component{
                 base.fetch('users/' + base.getAuth().uid, {
                     context: this,
                     then(data){
-                        if (!!data.displayName && !!data.team){
-                            browserHistory.push('/home');
+                        if (data === null || !data.displayName || !data.team){
+                            browserHistory.push('/settings');
                             window.location.reload();
                         } else {
-                            browserHistory.push('/settings');
+                            browserHistory.push('/');
                             window.location.reload();
                         }
                     }
