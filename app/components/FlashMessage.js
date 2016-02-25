@@ -6,6 +6,11 @@ class FlashMessage extends React.Component{
             color: 'red',
             fontWeight: 'bold'
         }
+
+        if (this.props.flashMessage.type === "success"){
+            divStyle.color = "darkgreen"
+        }
+
         return (
             <div style={divStyle}>
                 {this.props.flashMessage.text}

@@ -1,0 +1,12 @@
+{
+  "firebase": "provocatio",
+  "public": "/",
+  "ignore": [
+    "firebase.json",
+    "**/.*",
+    "**/node_modules/**",
+    "**/app/**",
+    "package.json",
+    "webpack.config.js"
+  ]
+}

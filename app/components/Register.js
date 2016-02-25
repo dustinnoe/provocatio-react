@@ -22,21 +22,24 @@ class Register extends React.Component{
                     case "EMAIL_TAKEN":
                         this.setState({
                             flashMessage: {
-                                text: "That email address already has an account."
+                                text: "That email address already has an account.",
+                                type: "error"
                             }
                         });
                         break;
                     case "INVALID_EMAIL":
                         this.setState({
                             flashMessage: {
-                                text: "That email address is not properly formatted."
+                                text: "That email address is not properly formatted.",
+                                type: "error"
                             }
                         });
                         break;
                     default:
                         this.setState({
                             flashMessage: {
-                                text: "There was a problem creating an account."
+                                text: "There was a problem creating an account.",
+                                type: "error"
                             }
                         });
                         console.log("Error creating user:", error);
@@ -44,7 +47,8 @@ class Register extends React.Component{
             } else {
                 this.setState({
                     flashMessage: {
-                        text: null
+                        text: "Successfully created account.",
+                        type: "success"
                     }
                 });
                 console.log("Successfully created user account with uid:", userData.uid);
