@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router';
-import base from "../utils/Rebase";
-import ChallengeBoardItem from './ChallengeBoardItem';
+import React from 'react'
+import { Link } from 'react-router'
+import base from "../utils/Rebase"
+import SignedInMenu from './SignedInMenu'
+import SignedOutMenu from './SignedOutMenu'
 
 class Menu extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            challenges: this.props.challenges,
             hasDisplayName: null,
             isOnTeam: null
         }
@@ -31,19 +31,11 @@ class Menu extends React.Component{
     render(){
         return (
             <nav>
-                <ul>
-                    {!base.getAuth() ? <li><Link to={'/register'}>Register</Link></li> : ""}
-                    <li><Link to={'/leaderboard'}>Leaderboard</Link></li>
-                    {!!base.getAuth() && this.state.isOnTeam && Array.isArray(this.props.challenges)
-                        ? <li>Challenges
-                            <ChallengeBoardItem challenges={this.props.challenges} />
-                        </li>
-                        : <span>Join or create a team to see the challenges.</span>}
-
-                </ul>
+                {!base.getAuth() ? <SignedOutMenu />: ""}
+                {!!base.getAuth() ? <SignedInMenu challenges={this.props.challenges} isOnTeam={this.state.isOnTeam} />  : ""}
             </nav>
         )
     }
 };
 
-export default Menu;
+export default Menu
