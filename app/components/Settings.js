@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 import Menu from './Menu'
-import Auth from "../utils/Auth";
-import base from "../utils/Rebase";
+import Auth from "../utils/Auth"
+import base from "../utils/Rebase"
 
 class Settings extends React.Component{
     constructor(props){
@@ -135,12 +135,14 @@ class Settings extends React.Component{
         });
     }
     handleChange(e){
-        let user = {};
+        let user = this.state.user;
+
         if(e.target.name === "firstName") { user.firstName = e.target.value }
         else { user.firstName = this.state.user.firstName }
+
         if(e.target.name === "lastName") { user.lastName = e.target.value }
         else{ user.lastName = this.state.user.lastName }
-        user.displayName = this.state.user.displayName;
+
         this.setState({user: user});
     }
     render() {
