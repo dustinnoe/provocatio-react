@@ -42,7 +42,7 @@ class LeaderBoard extends React.Component{
                         <th>Score</th>
                     </tr>
                     </thead>
-                    <LeaderBoardItem items={this.state.leaderboard} />
+                    <LeaderBoardItem leaders={this.state.leaderboard} />
                 </table>
             </div>
         );

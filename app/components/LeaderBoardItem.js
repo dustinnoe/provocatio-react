@@ -6,7 +6,7 @@ class LeaderBoardItem extends React.Component{
         var createItem = function(item){
             return <tr key={item.key}><td>{item.key}</td><td>{item.points}</td></tr>;
         }.bind(this);
-        return <tbody>{this.props.items.map(createItem)}</tbody>;
+        return <tbody>{this.props.leaders.map(createItem)}</tbody>;
     }
 }
 
